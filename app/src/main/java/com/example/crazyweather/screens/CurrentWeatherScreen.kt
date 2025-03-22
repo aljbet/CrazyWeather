@@ -1,4 +1,4 @@
-package com.example.crazyweather
+package com.example.crazyweather.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,15 +15,5 @@ fun CurrentWeatherScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(text = "Погода здесь и сейчас", fontSize = 24.sp)
-    }
-}
-
-@Composable
-fun SettingsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Настройки", fontSize = 24.sp)
     }
 }

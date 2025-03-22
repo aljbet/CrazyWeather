@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.crazyweather.screens.Screen
 import com.example.crazyweather.ui.theme.AviasalesBlue
 
 @Composable
@@ -19,7 +20,7 @@ fun NavigationPanel(navController: NavController) {
     BottomNavigation(
         backgroundColor = AviasalesBlue
     ) {
-        val items = listOf(Screen.Search, Screen.CurrentWeather, Screen.Settings)
+        val items = listOf(Screen.Search, Screen.CurrentWeather, Screen.Account)
         val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
         items.forEach { screen ->

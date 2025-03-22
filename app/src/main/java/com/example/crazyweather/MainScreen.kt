@@ -7,6 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.crazyweather.screens.AccountScreen
+import com.example.crazyweather.screens.CurrentWeatherScreen
+import com.example.crazyweather.screens.HistoryScreen
+import com.example.crazyweather.screens.Screen
+import com.example.crazyweather.screens.SearchResultScreen
+import com.example.crazyweather.screens.SearchScreen
 
 @Composable
 fun MainScreen() {
@@ -22,10 +28,11 @@ fun MainScreen() {
             startDestination = Screen.CurrentWeather.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(Screen.Account.route) { AccountScreen(navController) }
+            composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
+            composable(Screen.History.route) { HistoryScreen(navController) }
             composable(Screen.Search.route) { SearchScreen(navController) }
             composable(Screen.SearchResult.route) { SearchResultScreen(navController) }
-            composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
-            composable(Screen.Settings.route) { SettingsScreen() }
         }
     }
 }
