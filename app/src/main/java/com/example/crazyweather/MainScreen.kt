@@ -23,7 +23,7 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Search.route) { SearchScreen(navController) }
-            composable(Screen.SearchResult.route) { SearchResultScreen() }
+            composable(Screen.SearchResult.route) { SearchResultScreen(navController) }
             composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
             composable(Screen.Settings.route) { SettingsScreen() }
         }

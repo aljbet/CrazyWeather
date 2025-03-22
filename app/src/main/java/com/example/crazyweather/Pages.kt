@@ -19,16 +19,6 @@ fun CurrentWeatherScreen() {
 }
 
 @Composable
-fun SearchResultScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Результат поиска", fontSize = 24.sp)
-    }
-}
-
-@Composable
 fun SettingsScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
