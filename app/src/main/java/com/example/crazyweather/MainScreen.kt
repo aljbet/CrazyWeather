@@ -22,7 +22,8 @@ fun MainScreen() {
             startDestination = Screen.CurrentWeather.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Search.route) { SearchScreen() }
+            composable(Screen.Search.route) { SearchScreen(navController) }
+            composable(Screen.SearchResult.route) { SearchResultScreen() }
             composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
             composable(Screen.Settings.route) { SettingsScreen() }
         }

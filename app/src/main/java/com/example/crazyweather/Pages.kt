@@ -9,23 +9,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SearchScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(text = "Тут будет поиск", fontSize = 24.sp)
-        // добавить кнопку button и сделать переход на страницу отображения
-    }
-}
-
-@Composable
 fun CurrentWeatherScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(text = "Погода здесь и сейчас", fontSize = 24.sp)
+    }
+}
+
+@Composable
+fun SearchResultScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Результат поиска", fontSize = 24.sp)
     }
 }
 
