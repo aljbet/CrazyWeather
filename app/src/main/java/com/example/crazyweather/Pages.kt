@@ -12,9 +12,10 @@ import androidx.compose.ui.unit.sp
 fun SearchScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(text = "Тут будет поиск", fontSize = 24.sp)
+        // добавить кнопку button и сделать переход на страницу отображения
     }
 }
 
