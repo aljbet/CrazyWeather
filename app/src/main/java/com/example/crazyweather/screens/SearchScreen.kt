@@ -22,13 +22,12 @@ import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
     navController: NavController,
-    searchViewModel: SearchViewModel = koinViewModel(),
-    sharedViewModel: SharedViewModel = koinViewModel()
+    searchViewModel: SearchViewModel,
+    sharedViewModel: SharedViewModel
 ) {
     val searchParams by searchViewModel.searchParams.collectAsState()
     val coroutineScope = rememberCoroutineScope()
