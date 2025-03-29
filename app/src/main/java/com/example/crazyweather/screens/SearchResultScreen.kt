@@ -17,10 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.ui.theme.BorderBlue
+
+// todo: clickable modifier\шторка для перехода к городам из поиска
 
 @Composable
 fun SearchResultScreen(navController: NavController) {
@@ -67,4 +71,16 @@ fun CityListItem(name: String, percent: Int) {
         Spacer(modifier = Modifier.width(8.dp))
         Text(percent.toString() + "%", Modifier.padding(10.dp))
     }
+}
+
+@Preview
+@Composable
+fun SearchResultScreenPreview() {
+    SearchResultScreen(rememberNavController())
+}
+
+@Preview
+@Composable
+fun CityListItemPreview() {
+    CityListItem("Саратов", 99)
 }
