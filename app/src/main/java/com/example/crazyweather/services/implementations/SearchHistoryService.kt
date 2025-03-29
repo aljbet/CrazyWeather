@@ -22,7 +22,7 @@ class SearchHistoryService : ISearchHistoryService {
     }
 
     override suspend fun getSearchHistory(): List<SearchHistoryItem> {
-        return history.toList()
+        return history.sortedByDescending { it.timestamp }.toList()
     }
 
     override suspend fun clearHistory() {
