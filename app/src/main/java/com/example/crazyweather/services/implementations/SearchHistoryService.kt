@@ -1,8 +1,8 @@
 package com.example.crazyweather.services.implementations
 
-import com.example.crazyweather.models.CityWeather
-import com.example.crazyweather.models.SearchHistoryItem
-import com.example.crazyweather.models.WeatherMetrics
+import com.example.crazyweather.models.entities.CityWeather
+import com.example.crazyweather.models.entities.SearchHistoryItem
+import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.services.interfaces.ISearchHistoryService
 
 class SearchHistoryService : ISearchHistoryService {

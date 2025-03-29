@@ -1,7 +1,7 @@
 package com.example.crazyweather.services.implementations
 
-import com.example.crazyweather.models.CityWeather
-import com.example.crazyweather.models.WeatherMetrics
+import com.example.crazyweather.models.entities.CityWeather
+import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.services.interfaces.ICitySearchService
 import com.example.crazyweather.services.interfaces.IWeatherApiService
 import kotlin.math.sqrt
