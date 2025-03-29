@@ -21,11 +21,11 @@ val appModule = module {
     val mockQualifier = named("mock")
 
     single<IWeatherApiService> { FakeWeatherApiService() }
-    single<ISearchHistoryService>(mockQualifier) { FakeSearchHistoryService() }
-    single<ICitySearchService> (mockQualifier) { CitySearchService(get())}
+    single<ISearchHistoryService>() { FakeSearchHistoryService() }
+    single<ICitySearchService> () { CitySearchService(get())}
 
-    viewModel { HistoryViewModel(get(mockQualifier)) }
-    viewModel { SearchViewModel(get(mockQualifier)) }
-    viewModel { SearchResultViewModel(get(mockQualifier)) }
+    viewModel { HistoryViewModel(get()) }
     viewModel { SharedViewModel() }
+    viewModel { SearchViewModel(get(), get()) }
+    viewModel { SearchResultViewModel(get()) }
 }
