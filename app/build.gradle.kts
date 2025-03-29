@@ -64,8 +64,6 @@ dependencies {
 
     val koinVersion = "4.0.3"
     implementation("io.insert-koin:koin-android:$koinVersion")
-    implementation("io.insert-koin:koin-androidx-viewmodel:$koinVersion")
-    implementation("io.insert-koin:koin-androidx-compose:3.5.3$koinVersion")
     testImplementation("io.insert-koin:koin-test:$koinVersion")
-    testImplementation("io.insert-koin:koin-test-junit4:$koinVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinVersion")
 }

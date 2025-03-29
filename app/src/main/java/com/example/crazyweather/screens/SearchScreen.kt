@@ -21,59 +21,121 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.ui.theme.BorderBlue
+import com.example.crazyweather.viewmodels.SearchViewModel
+import com.example.crazyweather.viewmodels.SharedViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun SearchScreen(
+    navController: NavController,
+    searchViewModel: SearchViewModel = koinViewModel(),
+    sharedViewModel: SharedViewModel = koinViewModel()
+) {
+    val searchParams by searchViewModel.searchParams.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 20.dp, start = 10.dp, end = 10.dp),
+            .padding(16.dp)
     ) {
         Text("Введите параметры:", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(8.dp))
-        SearchItem("Температура", "C\u00B0")
-        Spacer(modifier = Modifier.height(8.dp))
-        SearchItem("Сила ветра", "м/с")
-        Spacer(modifier = Modifier.height(8.dp))
-        SearchItem("Влажность", "%")
-        Spacer(modifier = Modifier.height(8.dp))
-        SearchItem("Облачность", "%")
+
+        SearchItem(
+            title = "Температура",
+            measurement = "C°",
+            value = searchParams.temperature?.toString() ?: "",
+            onValueChange = { value ->
+                searchViewModel.updateSearchParams(
+                    searchParams.copy(temperature = value.toDoubleOrNull())
+                )
+            }
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {
-            navController.navigate(Screen.SearchResult.route) {
-                popUpTo(navController.graph.startDestinationId) { saveState = true }
-                launchSingleTop = true
-                restoreState = true
+        SearchItem(
+            title = "Сила ветра",
+            measurement = "м/с",
+            value = searchParams.windSpeed?.toString() ?: "",
+            onValueChange = { value ->
+                searchViewModel.updateSearchParams(
+                    searchParams.copy(windSpeed = value.toDoubleOrNull())
+                )
             }
-        }) {
-            Text("Найти подходящий город")
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SearchItem(
+            title = "Влажность",
+            measurement = "%",
+            value = searchParams.humidity?.toString() ?: "",
+            onValueChange = { value ->
+                searchViewModel.updateSearchParams(
+                    searchParams.copy(humidity = value.toDoubleOrNull())
+                )
+            }
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SearchItem(
+            title = "Облачность",
+            measurement = "%",
+            value = searchParams.cloudiness?.toString() ?: "",
+            onValueChange = { value ->
+                searchViewModel.updateSearchParams(
+                    searchParams.copy(cloudiness = value.toDoubleOrNull())
+                )
+            }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                coroutineScope.launch {
+                    val results = searchViewModel.searchCities()
+                    sharedViewModel.setSearchResults(results)
+                    navController.navigate("search_result")
+                }
+            }
+        ) {
+            Text("Найти города")
         }
     }
 }
 
 @Composable
-fun SearchItem(title: String, measurement: String) {
-    var userInput by remember { mutableStateOf("") }
-
+fun SearchItem(
+    title: String,
+    measurement: String,
+    value: String,
+    onValueChange: (String) -> Unit
+) {
     Row(
         modifier = Modifier
             .border(2.dp, BorderBlue)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(title, Modifier
-            .padding(5.dp)
-            .width(200.dp))
-        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = title,
+            modifier = Modifier.width(100.dp)
+        )
+        Spacer(modifier = Modifier.width(16.dp))
         TextField(
-            value = userInput,
-            onValueChange = { userInput = it },
+            value = value,
+            onValueChange = onValueChange,
             singleLine = true,
-            modifier = Modifier.width(60.dp)
+            modifier = Modifier.width(100.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(measurement, Modifier.padding(5.dp))
+        Text(measurement)
     }
 }
 

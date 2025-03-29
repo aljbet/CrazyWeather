@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,6 +15,8 @@ import com.example.crazyweather.screens.HistoryScreen
 import com.example.crazyweather.screens.Screen
 import com.example.crazyweather.screens.SearchResultScreen
 import com.example.crazyweather.screens.SearchScreen
+import com.example.crazyweather.viewmodels.HistoryViewModel
+import org.koin.java.KoinJavaComponent.inject
 
 @Composable
 fun MainScreen() {
