@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -15,11 +14,18 @@ import com.example.crazyweather.screens.Screen
 import com.example.crazyweather.screens.SearchResultScreen
 import com.example.crazyweather.screens.SearchScreen
 import com.example.crazyweather.viewmodels.HistoryViewModel
-import org.koin.java.KoinJavaComponent.inject
+import com.example.crazyweather.viewmodels.SearchResultViewModel
+import com.example.crazyweather.viewmodels.SearchViewModel
+import com.example.crazyweather.viewmodels.SharedViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val historyViewModel = koinViewModel<HistoryViewModel>()
+    val searchViewModel = koinViewModel<SearchViewModel>()
+    val searchResultViewModel = koinViewModel<SearchResultViewModel>()
+    val sharedViewModel = koinViewModel<SharedViewModel>()
 
     Scaffold(
         bottomBar = {
@@ -33,9 +39,9 @@ fun MainScreen() {
         ) {
             composable(Screen.Account.route) { AccountScreen(navController) }
             composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
-            composable(Screen.History.route) { HistoryScreen(navController) }
-            composable(Screen.Search.route) { SearchScreen(navController) }
-            composable(Screen.SearchResult.route) { SearchResultScreen(navController) }
+            composable(Screen.History.route) { HistoryScreen(navController, historyViewModel) }
+            composable(Screen.Search.route) { SearchScreen(navController, searchViewModel, sharedViewModel) }
+            composable(Screen.SearchResult.route) { SearchResultScreen(navController, searchResultViewModel, sharedViewModel) }
         }
     }
 }
