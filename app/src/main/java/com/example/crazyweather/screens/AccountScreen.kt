@@ -131,12 +131,12 @@ fun FavoriteCity(name: String, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun FavoriteCityPreview() {
-    FavoriteCity("Саратов")
+fun AccountScreenPreview() {
+    AccountScreen(rememberNavController())
 }
 
 @Preview
 @Composable
-fun AccountScreenPreview() {
-    AccountScreen(rememberNavController())
+fun FavoriteCityPreview() {
+    FavoriteCity("Саратов")
 }

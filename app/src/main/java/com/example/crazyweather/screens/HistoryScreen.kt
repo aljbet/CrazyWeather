@@ -17,9 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.ui.theme.BorderBlue
 
 @Composable
@@ -60,12 +62,24 @@ fun HistoryListItem(temperature: Int, wind: Int, humidity: Int, cloudiness: Int)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(temperature.toString() + "C\u00B0", Modifier.padding(10.dp))
+        Text(temperature.toString() + "C\u00B0", Modifier.padding(10.dp).width(50.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text(wind.toString() + "м/с", Modifier.padding(10.dp))
+        Text(wind.toString() + "м/с", Modifier.padding(10.dp).width(50.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text("$humidity%", Modifier.padding(10.dp))
+        Text("$humidity%", Modifier.padding(10.dp).width(50.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text("$cloudiness%", Modifier.padding(10.dp))
+        Text("$cloudiness%", Modifier.padding(10.dp).width(50.dp))
     }
+}
+
+@Preview
+@Composable
+fun HistoryScreenPreview() {
+    HistoryScreen(rememberNavController())
+}
+
+@Preview
+@Composable
+fun HistoryListItemPreview() {
+    HistoryListItem(5, 5, 5, 5)
 }

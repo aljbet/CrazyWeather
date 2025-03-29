@@ -1,14 +1,14 @@
 package com.example.crazyweather.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -18,13 +18,11 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.crazyweather.R
-import com.example.crazyweather.ui.theme.AviasalesBlue
 import com.example.crazyweather.ui.theme.BorderBlue
 
-@Composable
-fun CurrentWeatherScreen() {
-    val cityName = "Саратов"
 
+@Composable
+fun CurrentWeatherScreen(cityName: String = "Саратов") {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -36,7 +34,7 @@ fun CurrentWeatherScreen() {
         val guide25 = createGuidelineFromStart(0.25f)
         val guide55 = createGuidelineFromStart(0.55f)
 
-        val hGuide7 = createGuidelineFromTop(0.07f)
+        val hGuide7 = createGuidelineFromTop(0.1f)
         val hGuide20 = createGuidelineFromTop(0.2f)
         val hGuide30 = createGuidelineFromTop(0.3f)
 
@@ -135,7 +133,6 @@ fun CurrentWeatherScreen() {
     }
 }
 
-
 @Composable
 fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
     ConstraintLayout(modifier = modifier.fillMaxSize().border(2.dp, BorderBlue)) {
@@ -166,12 +163,12 @@ fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun WeatherParamPreview() {
-    WeatherParam("скорость ветра", "10 м/с")
+fun CurrentWeatherScreenPreview() {
+    CurrentWeatherScreen()
 }
 
 @Preview
 @Composable
-fun CurrentWeatherScreenReview() {
-    CurrentWeatherScreen()
+fun WeatherParamPreview() {
+    WeatherParam("Параметр", "значение")
 }

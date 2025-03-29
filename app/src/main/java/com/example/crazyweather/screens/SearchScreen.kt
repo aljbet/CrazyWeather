@@ -15,9 +15,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.ui.theme.BorderBlue
 
 @Composable
@@ -73,4 +75,16 @@ fun SearchItem(title: String, measurement: String) {
         Spacer(modifier = Modifier.width(8.dp))
         Text(measurement, Modifier.padding(5.dp))
     }
+}
+
+@Preview
+@Composable
+fun SearchScreenPreview() {
+    SearchScreen(rememberNavController())
+}
+
+@Preview
+@Composable
+fun SearchItemPreview() {
+    SearchItem("Саратов", "%")
 }
