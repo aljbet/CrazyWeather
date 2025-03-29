@@ -1,7 +1,7 @@
 package com.example.crazyweather.services.interfaces
 
-import com.example.crazyweather.models.CityWeather
-import com.example.crazyweather.models.WeatherMetrics
+import com.example.crazyweather.models.entities.CityWeather
+import com.example.crazyweather.models.entities.WeatherMetrics
 
 interface ICitySearchService {
     suspend fun findBestMatchingCities(userMetrics: WeatherMetrics): List<CityWeather>

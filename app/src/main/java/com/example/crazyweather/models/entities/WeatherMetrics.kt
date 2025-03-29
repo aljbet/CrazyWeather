@@ -1,4 +1,4 @@
-package com.example.crazyweather.models
+package com.example.crazyweather.models.entities
 
 data class WeatherMetrics(
     val temperature: Double? = null,
