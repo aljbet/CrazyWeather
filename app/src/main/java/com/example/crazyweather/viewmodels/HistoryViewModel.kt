@@ -19,6 +19,10 @@ class HistoryViewModel(
     private val _state = MutableStateFlow(HistoryScreenState())
     val state: StateFlow<HistoryScreenState> = _state.asStateFlow()
 
+    init {
+        loadHistory()
+    }
+
     fun handleEvent(event: HistoryScreenEvent) {
         when (event) {
             HistoryScreenEvent.LoadHistory -> loadHistory()
