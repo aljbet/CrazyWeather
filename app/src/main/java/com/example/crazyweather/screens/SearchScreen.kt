@@ -24,6 +24,7 @@ import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
@@ -141,11 +142,15 @@ fun SearchItem(
 @Preview
 @Composable
 fun SearchScreenPreview() {
-    SearchScreen(rememberNavController())
+    SearchScreen(rememberNavController(), koinViewModel<SearchViewModel>(), koinViewModel<SharedViewModel>())
 }
 
 @Preview
 @Composable
 fun SearchItemPreview() {
-    SearchItem("Саратов", "%")
+    SearchItem(
+        title = "Сила ветра",
+        measurement = "м/с",
+        value = "15",
+        onValueChange = {})
 }

@@ -15,6 +15,7 @@ import com.example.crazyweather.screens.HistoryScreen
 import com.example.crazyweather.screens.Screen
 import com.example.crazyweather.screens.SearchResultScreen
 import com.example.crazyweather.screens.SearchScreen
+import com.example.crazyweather.viewmodels.CurrentWeatherViewModel
 import com.example.crazyweather.viewmodels.HistoryViewModel
 import com.example.crazyweather.viewmodels.SearchResultViewModel
 import com.example.crazyweather.viewmodels.SearchViewModel
@@ -28,6 +29,7 @@ fun MainScreen() {
     val searchViewModel = koinViewModel<SearchViewModel>()
     val searchResultViewModel = koinViewModel<SearchResultViewModel>()
     val sharedViewModel = koinViewModel<SharedViewModel>()
+    val currentWeatherViewModel = koinViewModel<CurrentWeatherViewModel>()
 
     Scaffold(
         bottomBar = {
@@ -40,7 +42,7 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Account.route) { AccountScreen(navController) }
-            composable(Screen.CurrentWeather.route) { CurrentWeatherScreen() }
+            composable(Screen.CurrentWeather.route) { CurrentWeatherScreen("Саратов", currentWeatherViewModel) }
             composable(Screen.History.route) { HistoryScreen(navController, historyViewModel) }
             composable(Screen.Search.route) { SearchScreen(navController, searchViewModel, sharedViewModel) }
             composable(Screen.SearchResult.route) { SearchResultScreen(navController, searchResultViewModel, sharedViewModel) }

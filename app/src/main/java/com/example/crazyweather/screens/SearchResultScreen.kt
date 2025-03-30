@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchResultViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
+import org.koin.androidx.compose.koinViewModel
 
 // todo: clickable modifier\шторка для перехода к городам из поиска
 
@@ -72,11 +73,12 @@ fun CityListItem(
 @Preview
 @Composable
 fun SearchResultScreenPreview() {
-    SearchResultScreen(rememberNavController())
+    SearchResultScreen(rememberNavController(), koinViewModel<SearchResultViewModel>(), koinViewModel<SharedViewModel>())
 }
 
 @Preview
 @Composable
 fun CityListItemPreview() {
-    CityListItem("Саратов", 99)
+    val viewModel = koinViewModel<SearchResultViewModel>()
+    CityListItem("Саратов", 99, onClick = { viewModel.loadCityForecast("Саратов")})
 }

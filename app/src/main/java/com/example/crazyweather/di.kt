@@ -7,6 +7,7 @@ import com.example.crazyweather.services.implementations.SearchHistoryService
 import com.example.crazyweather.services.interfaces.ICitySearchService
 import com.example.crazyweather.services.interfaces.ISearchHistoryService
 import com.example.crazyweather.services.interfaces.IWeatherApiService
+import com.example.crazyweather.viewmodels.CurrentWeatherViewModel
 import com.example.crazyweather.viewmodels.HistoryViewModel
 import com.example.crazyweather.viewmodels.SearchResultViewModel
 import com.example.crazyweather.viewmodels.SearchViewModel
@@ -28,4 +29,5 @@ val appModule = module {
     viewModel { SharedViewModel() }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { SearchResultViewModel(get()) }
+    viewModel { CurrentWeatherViewModel(get()) }
 }
