@@ -4,6 +4,7 @@ import com.example.crazyweather.services.fakes.FakeSearchHistoryService
 import com.example.crazyweather.services.fakes.FakeWeatherApiService
 import com.example.crazyweather.services.implementations.CitySearchService
 import com.example.crazyweather.services.implementations.SearchHistoryService
+import com.example.crazyweather.services.implementations.WeatherApiService
 import com.example.crazyweather.services.interfaces.ICitySearchService
 import com.example.crazyweather.services.interfaces.ISearchHistoryService
 import com.example.crazyweather.services.interfaces.IWeatherApiService
@@ -21,7 +22,7 @@ val appModule = module {
     val prodQualifier = named("prod")
     val mockQualifier = named("mock")
 
-    single<IWeatherApiService> { FakeWeatherApiService() }
+    single<IWeatherApiService> { WeatherApiService() }
     single<ISearchHistoryService>() { FakeSearchHistoryService() }
     single<ICitySearchService> () { CitySearchService(get())}
 

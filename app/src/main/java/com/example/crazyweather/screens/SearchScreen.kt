@@ -100,6 +100,7 @@ fun SearchScreen(
                 coroutineScope.launch {
                     val results = searchViewModel.searchCities()
                     sharedViewModel.setSearchResults(results)
+                    println(results)
                     navController.navigate("search_result")
                 }
             }
