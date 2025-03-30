@@ -61,4 +61,9 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.compose.material:material:1.5.4")
+
+    val koinVersion = "4.0.3"
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    testImplementation("io.insert-koin:koin-test:$koinVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinVersion")
 }

@@ -3,18 +3,17 @@ package com.example.crazyweather.screens
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,64 +21,95 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.crazyweather.models.entities.SearchHistoryItem
+import com.example.crazyweather.models.entities.WeatherMetrics
+import com.example.crazyweather.models.vmmodels.HistoryScreenEvent
 import com.example.crazyweather.ui.theme.BorderBlue
+import com.example.crazyweather.viewmodels.HistoryViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.java.KoinJavaComponent.getKoin
+import java.sql.Timestamp
 
 @Composable
-fun HistoryScreen(navController: NavController) {
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 20.dp, start = 10.dp, end = 10.dp),
-    ) {
-        Button(onClick = {
-            navController.navigate(Screen.Account.route) {
-                popUpTo(navController.graph.startDestinationId) { saveState = true }
-                launchSingleTop = true
-                restoreState = true
-            }
-        }) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Назад"
-            )
+fun HistoryScreen(
+    navController: NavController,
+    viewModel: HistoryViewModel
+) {
+    val state by viewModel.state.collectAsState()
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        // Кнопка назад
+        Button(onClick = { navController.popBackStack() }) {
+            Text("Назад")
         }
 
-        Text(text = "История", fontSize = 24.sp)
-        Spacer(modifier = Modifier.height(8.dp))
-        HistoryListItem(25, 10, 75, 100)
-        Spacer(modifier = Modifier.height(8.dp))
-        HistoryListItem(5, 20, 20, 100)
-        Spacer(modifier = Modifier.height(8.dp))
-        HistoryListItem(25, 10, 75, 100)
+        // Заголовок
+        Text("История", fontSize = 24.sp)
+
+        // Кнопка очистки
+        Button(
+            onClick = { viewModel.handleEvent(HistoryScreenEvent.ClearHistory) },
+            enabled = !state.isLoading
+        ) {
+            Text("Очистить историю")
+        }
+
+        // Состояние загрузки
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+        }
+
+        // Ошибка
+        state.error?.let { error ->
+            Text("Ошибка: $error", color = MaterialTheme.colorScheme.error)
+        }
+
+        // Список истории
+        LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
+            items(state.historyItems) { item ->
+                HistoryListItem(item)
+            }
+        }
     }
 }
 
 @Composable
-fun HistoryListItem(temperature: Int, wind: Int, humidity: Int, cloudiness: Int) {
+fun HistoryListItem(item: SearchHistoryItem) {
+    println(item.searchParams)
     Row(
         modifier = Modifier
             .border(2.dp, BorderBlue)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(temperature.toString() + "C\u00B0", Modifier.padding(10.dp).width(50.dp))
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(wind.toString() + "м/с", Modifier.padding(10.dp).width(50.dp))
-        Spacer(modifier = Modifier.width(8.dp))
-        Text("$humidity%", Modifier.padding(10.dp).width(50.dp))
-        Spacer(modifier = Modifier.width(8.dp))
-        Text("$cloudiness%", Modifier.padding(10.dp).width(50.dp))
+        item.searchParams.temperature?.let {
+            Text("${it.toInt()}°C", modifier = Modifier.padding(end = 8.dp))
+        }
+        item.searchParams.windSpeed?.let {
+            Text("${it.toInt()} м/с", modifier = Modifier.padding(end = 8.dp))
+        }
+        item.searchParams.humidity?.let {
+            Text("${it.toInt()}%", modifier = Modifier.padding(end = 8.dp))
+        }
+        item.searchParams.cloudiness?.let {
+            Text("${it.toInt()}%", modifier = Modifier.padding(end = 8.dp))
+        }
     }
 }
 
 @Preview
 @Composable
 fun HistoryScreenPreview() {
-    HistoryScreen(rememberNavController())
+    HistoryScreen(rememberNavController(), koinViewModel<HistoryViewModel>())
 }
 
 @Preview
 @Composable
 fun HistoryListItemPreview() {
-    HistoryListItem(5, 5, 5, 5)
+    HistoryListItem(SearchHistoryItem(
+        5, WeatherMetrics(1.0, 1.0, 1.0, 1.0),
+        timestamp = System.currentTimeMillis(),
+        results = null,
+    ))
 }
