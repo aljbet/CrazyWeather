@@ -20,11 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.crazyweather.appModule
 import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.context.startKoin
 
 @Composable
 fun SearchScreen(
@@ -100,11 +102,11 @@ fun SearchScreen(
                 coroutineScope.launch {
                     val results = searchViewModel.searchCities()
                     sharedViewModel.setSearchResults(results)
-                    navController.navigate("search_result")
+                    navController.navigate(Screen.SearchResult.route)
                 }
             }
         ) {
-            Text("Найти города")
+            Text("Найти подходящий город")
         }
     }
 }
@@ -124,25 +126,33 @@ fun SearchItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = title,
-            modifier = Modifier.width(100.dp)
+            title, Modifier
+                .padding(5.dp)
+                .width(150.dp)
         )
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(8.dp))
         TextField(
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
-            modifier = Modifier.width(100.dp)
+            modifier = Modifier.width(60.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(measurement)
+        Text(measurement, Modifier.padding(5.dp))
     }
 }
 
 @Preview
 @Composable
 fun SearchScreenPreview() {
-    SearchScreen(rememberNavController(), koinViewModel<SearchViewModel>(), koinViewModel<SharedViewModel>())
+    startKoin {
+        modules(appModule)
+    }
+    SearchScreen(
+        rememberNavController(),
+        koinViewModel<SearchViewModel>(),
+        koinViewModel<SharedViewModel>()
+    )
 }
 
 @Preview

@@ -22,17 +22,18 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.crazyweather.R
-import com.example.crazyweather.models.entities.CityWeather
+import com.example.crazyweather.appModule
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.CurrentWeatherState
 import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.CurrentWeatherViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.context.startKoin
 
 
 @Composable
 fun CurrentWeatherScreen(
-    cityName: String = "Саратов", // Наш любимый город!!!
+    cityName: String,
     viewModel: CurrentWeatherViewModel
 ) {
     val weatherState by viewModel.weatherState.collectAsState()
@@ -47,11 +48,13 @@ fun CurrentWeatherScreen(
                 CircularProgressIndicator()
             }
         }
+
         is CurrentWeatherState.Error -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Ошибка: ${state.message}", fontSize = 20.sp)
             }
         }
+
         is CurrentWeatherState.Success -> {
             WeatherContent(
                 cityName = cityName,
@@ -86,65 +89,77 @@ private fun WeatherContent(
         val weatherType = createRef()
 
         Text(
-            text = "$cityName. Погода",
+            "${cityName}. Погода",
             fontSize = 28.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.constrainAs(city) {
-                start.linkTo(startGuideline)
-                end.linkTo(endGuideline)
-                top.linkTo(topGuideline)
-                bottom.linkTo(hGuide7)
-                width = Dimension.fillToConstraints
-            }
+            modifier = Modifier
+                .constrainAs(city) {
+                    start.linkTo(startGuideline)
+                    end.linkTo(endGuideline)
+                    top.linkTo(topGuideline)
+                    bottom.linkTo(hGuide7)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                }
+                .fillMaxSize()
         )
 
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.constrainAs(temp) {
-                start.linkTo(startGuideline)
-                end.linkTo(guide25)
-                top.linkTo(city.bottom)
-                bottom.linkTo(hGuide20)
-                width = Dimension.fillToConstraints
-            }
+            modifier = Modifier
+                .constrainAs(temp) {
+                    start.linkTo(startGuideline)
+                    end.linkTo(guide25)
+                    top.linkTo(city.bottom)
+                    bottom.linkTo(hGuide20)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxSize()
         ) {
             Text(
-                text = "${currentWeather.temperature?.toInt() ?: 0}°",
+                text = "${currentWeather.temperature?.toInt() ?: 0}°C",
+                fontSize = 30.sp
+            )
+        }
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .constrainAs(weatherIcon) {
+                    start.linkTo(temp.end)
+                    end.linkTo(guide55)
+                    top.linkTo(temp.top)
+                    bottom.linkTo(temp.bottom)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxSize()
+        ) {
+            Text(
+                text = getWeatherIcon(currentWeather),
                 fontSize = 50.sp
             )
         }
 
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.constrainAs(weatherIcon) {
-                start.linkTo(temp.end)
-                end.linkTo(guide55)
-                top.linkTo(temp.top)
-                bottom.linkTo(temp.bottom)
-                width = Dimension.fillToConstraints
-            }
-        ) {
-            Text(
-                text = getWeatherIcon(currentWeather),
-                fontSize = 80.sp
-            )
-        }
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.constrainAs(cityPicture) {
-                start.linkTo(weatherIcon.end)
-                end.linkTo(endGuideline)
-                top.linkTo(temp.top)
-                bottom.linkTo(hGuide30)
-                width = Dimension.fillToConstraints
-            }
+            modifier = Modifier
+                .constrainAs(cityPicture) {
+                    start.linkTo(weatherIcon.end)
+                    end.linkTo(endGuideline)
+                    top.linkTo(temp.top)
+                    bottom.linkTo(hGuide30)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                }
+                .fillMaxSize()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.saratov),
                 contentDescription = "$cityName. Фото",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
             )
         }
 
@@ -152,21 +167,24 @@ private fun WeatherContent(
             text = getWeatherDescription(currentWeather),
             fontSize = 23.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.constrainAs(weatherType) {
-                start.linkTo(temp.start)
-                end.linkTo(weatherIcon.end)
-                top.linkTo(temp.bottom)
-                bottom.linkTo(cityPicture.bottom)
-                width = Dimension.fillToConstraints
-            }
+            modifier = Modifier
+                .constrainAs(weatherType) {
+                    start.linkTo(temp.start)
+                    end.linkTo(weatherIcon.end)
+                    top.linkTo(temp.bottom)
+                    bottom.linkTo(cityPicture.bottom)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                }
+                .fillMaxSize()
         )
 
         val guide45 = createGuidelineFromStart(0.45f)
-
+        val wind = createRef()
         WeatherParam(
             name = "Скорость ветра",
             value = "${currentWeather.windSpeed?.toInt() ?: 0} м/с",
-            modifier = Modifier.constrainAs(createRef()) {
+            modifier = Modifier.constrainAs(wind) {
                 start.linkTo(startGuideline)
                 end.linkTo(guide45)
                 top.linkTo(cityPicture.bottom, margin = 50.dp)
@@ -193,7 +211,7 @@ private fun WeatherContent(
             modifier = Modifier.constrainAs(createRef()) {
                 start.linkTo(startGuideline)
                 end.linkTo(guide45)
-                top.linkTo(cityPicture.bottom, margin = 220.dp)
+                top.linkTo(wind.bottom, margin = 50.dp)
                 height = Dimension.value(140.dp)
                 width = Dimension.fillToConstraints
             }
@@ -202,13 +220,16 @@ private fun WeatherContent(
 }
 
 @Composable
-private fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
-    ConstraintLayout(modifier = modifier.border(2.dp, BorderBlue)) {
+fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
+    ConstraintLayout(modifier = modifier
+        .fillMaxSize()
+        .border(2.dp, BorderBlue)) {
         val separator = createGuidelineFromTop(0.6f)
+
         val (nameRef, valueRef) = createRefs()
 
         Text(
-            text = name,
+            name,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -218,12 +239,14 @@ private fun WeatherParam(name: String, value: String, modifier: Modifier = Modif
                     top.linkTo(parent.top)
                     bottom.linkTo(separator)
                     width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
                 }
+                .fillMaxSize()
                 .padding(15.dp)
         )
 
         Text(
-            text = value,
+            value,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -232,8 +255,11 @@ private fun WeatherParam(name: String, value: String, modifier: Modifier = Modif
                     end.linkTo(parent.end)
                     top.linkTo(nameRef.bottom)
                     bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
                     width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
                 }
+                .fillMaxSize()
         )
     }
 }
@@ -260,7 +286,16 @@ private fun getWeatherIcon(metrics: WeatherMetrics): String {
 @Preview
 @Composable
 fun CurrentWeatherScreenPreview() {
+    startKoin {
+        modules(appModule)
+    }
     CurrentWeatherScreen("Саратов", koinViewModel<CurrentWeatherViewModel>())
+}
+
+@Preview
+@Composable
+fun WeatherContentPreview() {
+    WeatherContent("Саратов", WeatherMetrics())
 }
 
 @Preview
