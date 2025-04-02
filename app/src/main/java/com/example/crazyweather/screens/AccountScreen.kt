@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.R
 import com.example.crazyweather.ui.theme.BorderBlue
+import com.example.crazyweather.ui.theme.CrazyWeatherTheme
 
 @Composable
 fun AccountScreen(navController: NavController) {
@@ -129,10 +130,13 @@ fun FavoriteCity(name: String, modifier: Modifier = Modifier) {
     }
 }
 
+// todo: на превью не отображается фон, надо его указать в razyWeatherTheme
 @Preview
 @Composable
 fun AccountScreenPreview() {
-    AccountScreen(rememberNavController())
+    CrazyWeatherTheme {
+        AccountScreen(rememberNavController())
+    }
 }
 
 @Preview

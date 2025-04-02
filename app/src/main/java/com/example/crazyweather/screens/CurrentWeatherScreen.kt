@@ -264,6 +264,7 @@ fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
     }
 }
 
+// todo: строки надо доставать из ресурсов values\strings
 private fun getWeatherDescription(metrics: WeatherMetrics): String {
     return when {
         (metrics.cloudiness ?: 0.0) > 70 -> "Облачно"
@@ -274,6 +275,7 @@ private fun getWeatherDescription(metrics: WeatherMetrics): String {
     }
 }
 
+// todo: должны лежать в drawable, доставать по id
 private fun getWeatherIcon(metrics: WeatherMetrics): String {
     return when {
         (metrics.cloudiness ?: 0.0) > 70 -> "\u2601" // Облачно
@@ -285,7 +287,7 @@ private fun getWeatherIcon(metrics: WeatherMetrics): String {
 
 @Preview
 @Composable
-fun CurrentWeatherScreenPreview() {
+fun CurrentWeatherScreenLoadingPreview() {
     startKoin {
         modules(appModule)
     }

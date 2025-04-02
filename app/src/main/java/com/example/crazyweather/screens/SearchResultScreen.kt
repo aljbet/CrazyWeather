@@ -42,6 +42,7 @@ fun SearchResultScreen(
     viewModel: SearchResultViewModel,
     sharedViewModel: SharedViewModel
 ) {
+    // todo: koin inject viewModel, их не надо прописывать в параметрах
     val searchResults by sharedViewModel.searchResults.collectAsState()
 
     Column(modifier = Modifier
