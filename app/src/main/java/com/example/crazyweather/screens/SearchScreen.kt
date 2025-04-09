@@ -31,9 +31,9 @@ import org.koin.core.context.startKoin
 @Composable
 fun SearchScreen(
     navController: NavController,
-    searchViewModel: SearchViewModel,
     sharedViewModel: SharedViewModel
 ) {
+    val searchViewModel: SearchViewModel = koinViewModel<SearchViewModel>()
     val searchParams by searchViewModel.searchParams.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -149,9 +149,7 @@ fun SearchScreenPreview() {
         modules(appModule)
     }
     SearchScreen(
-        rememberNavController(),
-        koinViewModel<SearchViewModel>(),
-        koinViewModel<SharedViewModel>()
+        rememberNavController(), koinViewModel<SharedViewModel>()
     )
 }
 

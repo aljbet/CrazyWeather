@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.CurrentWeatherState
-import com.example.crazyweather.services.interfaces.ICitySearchService
 import com.example.crazyweather.services.interfaces.IWeatherApiService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

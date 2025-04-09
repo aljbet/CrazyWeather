@@ -39,15 +39,16 @@ import org.koin.core.context.startKoin
 @Composable
 fun SearchResultScreen(
     navController: NavController,
-    viewModel: SearchResultViewModel,
     sharedViewModel: SharedViewModel
 ) {
-    // todo: koin inject viewModel, их не надо прописывать в параметрах
+    val viewModel: SearchResultViewModel = koinViewModel<SearchResultViewModel>()
     val searchResults by sharedViewModel.searchResults.collectAsState()
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Button(onClick = { navController.popBackStack() }) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -82,9 +83,11 @@ fun CityListItem(
             .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(name, Modifier
-            .weight(1f)
-            .padding(10.dp), fontSize = 20.sp)
+        Text(
+            name, Modifier
+                .weight(1f)
+                .padding(10.dp), fontSize = 20.sp
+        )
         Spacer(modifier = Modifier.width(8.dp))
         Text("$percent%", Modifier.padding(10.dp))
     }
@@ -97,9 +100,7 @@ fun SearchResultScreenPreview() {
         modules(appModule)
     }
     SearchResultScreen(
-        rememberNavController(),
-        koinViewModel<SearchResultViewModel>(),
-        koinViewModel<SharedViewModel>()
+        rememberNavController(), koinViewModel<SharedViewModel>()
     )
 }
 

@@ -38,10 +38,10 @@ import org.koin.core.context.startKoin
 
 @Composable
 fun HistoryScreen(
-    navController: NavController,
-    viewModel: HistoryViewModel
+    navController: NavController
 ) {
-    val state by viewModel.state.collectAsState()
+    val historyViewModel: HistoryViewModel = koinViewModel<HistoryViewModel>()
+    val state by historyViewModel.state.collectAsState()
 
     Column(modifier = Modifier.padding(16.dp)) {
         // Кнопка назад
@@ -57,7 +57,7 @@ fun HistoryScreen(
 
         // Кнопка очистки
         Button(
-            onClick = { viewModel.handleEvent(HistoryScreenEvent.ClearHistory) },
+            onClick = { historyViewModel.handleEvent(HistoryScreenEvent.ClearHistory) },
             enabled = !state.isLoading
         ) {
             Text("Очистить историю")
@@ -122,7 +122,7 @@ fun HistoryScreenPreview() {
     startKoin {
         modules(appModule)
     }
-    HistoryScreen(rememberNavController(), koinViewModel<HistoryViewModel>())
+    HistoryScreen(rememberNavController())
 }
 
 @Preview

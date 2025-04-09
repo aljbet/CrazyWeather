@@ -12,13 +12,9 @@ import com.example.crazyweather.viewmodels.SearchResultViewModel
 import com.example.crazyweather.viewmodels.SearchViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
 import org.koin.core.module.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val appModule = module {
-    val prodQualifier = named("prod")
-    val mockQualifier = named("mock")
-
     single<IWeatherApiService> { FakeWeatherApiService() }
     single<ISearchHistoryService> { FakeSearchHistoryService() }
     single<ICitySearchService> { CitySearchService(get())}

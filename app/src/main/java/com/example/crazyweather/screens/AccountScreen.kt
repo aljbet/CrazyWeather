@@ -130,7 +130,6 @@ fun FavoriteCity(name: String, modifier: Modifier = Modifier) {
     }
 }
 
-// todo: на превью не отображается фон, надо его указать в razyWeatherTheme
 @Preview
 @Composable
 fun AccountScreenPreview() {

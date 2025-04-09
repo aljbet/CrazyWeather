@@ -33,9 +33,9 @@ import org.koin.core.context.startKoin
 
 @Composable
 fun CurrentWeatherScreen(
-    cityName: String,
-    viewModel: CurrentWeatherViewModel
+    cityName: String
 ) {
+    val viewModel: CurrentWeatherViewModel = koinViewModel<CurrentWeatherViewModel>()
     val weatherState by viewModel.weatherState.collectAsState()
 
     LaunchedEffect(cityName) {
@@ -73,7 +73,6 @@ private fun WeatherContent(
         val startGuideline = createGuidelineFromStart(0.03f)
         val endGuideline = createGuidelineFromEnd(0.03f)
         val topGuideline = createGuidelineFromTop(0.03f)
-        val bottomGuideline = createGuidelineFromBottom(0.03f)
 
         val guide25 = createGuidelineFromStart(0.25f)
         val guide55 = createGuidelineFromStart(0.55f)
@@ -291,7 +290,8 @@ fun CurrentWeatherScreenLoadingPreview() {
     startKoin {
         modules(appModule)
     }
-    CurrentWeatherScreen("Саратов", koinViewModel<CurrentWeatherViewModel>())
+    CurrentWeatherScreen("Саратов"
+    )
 }
 
 @Preview
