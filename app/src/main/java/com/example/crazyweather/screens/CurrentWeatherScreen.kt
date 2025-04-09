@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -263,18 +264,17 @@ fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
     }
 }
 
-// todo: строки надо доставать из ресурсов values\strings
+@Composable
 private fun getWeatherDescription(metrics: WeatherMetrics): String {
     return when {
-        (metrics.cloudiness ?: 0.0) > 70 -> "Облачно"
-        (metrics.cloudiness ?: 0.0) > 30 -> "Переменная облачность"
-        (metrics.temperature ?: 0.0) > 25 -> "Ясно и жарко"
-        (metrics.temperature ?: 0.0) < 0 -> "Ясно и морозно"
-        else -> "Ясно"
+        (metrics.cloudiness ?: 0.0) > 70 -> stringResource(R.string.cloudy)
+        (metrics.cloudiness ?: 0.0) > 30 -> stringResource(R.string.partly_cloudy)
+        (metrics.temperature ?: 0.0) > 25 -> stringResource(R.string.clear_hot)
+        (metrics.temperature ?: 0.0) < 0 -> stringResource(R.string.clear_hot)
+        else -> stringResource(R.string.clear)
     }
 }
 
-// todo: должны лежать в drawable, доставать по id
 private fun getWeatherIcon(metrics: WeatherMetrics): String {
     return when {
         (metrics.cloudiness ?: 0.0) > 70 -> "\u2601" // Облачно

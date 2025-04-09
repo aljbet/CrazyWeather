@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CrazyWeather</string>
+    <string name="cloudy">Облачно</string>
+    <string name="partly_cloudy">Переменная облачность</string>
+    <string name="clear_hot">Ясно и жарко</string>
+    <string name="clear_cold">Ясно и морозно</string>
+    <string name="clear">Ясно</string>
 </resources>
