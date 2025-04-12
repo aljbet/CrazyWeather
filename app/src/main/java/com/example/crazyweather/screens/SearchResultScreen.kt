@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.appModule
+import com.example.crazyweather.ktorModule
 import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchResultViewModel
 import com.example.crazyweather.viewmodels.SharedViewModel
@@ -97,7 +98,7 @@ fun CityListItem(
 @Composable
 fun SearchResultScreenPreview() {
     startKoin {
-        modules(appModule)
+        modules(appModule, ktorModule)
     }
     SearchResultScreen(
         rememberNavController(), koinViewModel<SharedViewModel>()

@@ -3,11 +3,11 @@ package com.example.crazyweather.services.implementations
 import com.example.crazyweather.models.entities.CityWeather
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.services.interfaces.ICitySearchService
-import com.example.crazyweather.services.interfaces.IWeatherApiService
+import com.example.crazyweather.services.interfaces.IWeatherService
 import kotlin.math.sqrt
 
 class CitySearchService(
-    private val weatherApi: IWeatherApiService
+    private val weatherApi: IWeatherService
 ) : ICitySearchService {
 
     override suspend fun findBestMatchingCities(userMetrics: WeatherMetrics): List<CityWeather> {
@@ -20,7 +20,8 @@ class CitySearchService(
     }
 
     private fun calculateMatches(cities: List<CityWeather>, userMetrics: WeatherMetrics): List<CityWeather> {
-        return cities.sortedByDescending { calculateMatchScore(it.metrics, userMetrics) }
+        cities.map { it.matchPercentage = calculateMatchScore(it.metrics, userMetrics) }
+        return cities.sortedByDescending { it.matchPercentage }
     }
 
     private fun calculateMatchScore(cityMetrics: WeatherMetrics, userMetrics: WeatherMetrics): Int {

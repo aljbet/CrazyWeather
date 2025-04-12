@@ -74,6 +74,7 @@ dependencies {
     implementation("io.ktor:ktor-client-okhttp:$ktorVersion") // Или ktor-client-android для Android
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }

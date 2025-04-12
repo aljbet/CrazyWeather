@@ -2,9 +2,9 @@ package com.example.crazyweather.services.fakes
 
 import com.example.crazyweather.models.entities.CityWeather
 import com.example.crazyweather.models.entities.WeatherMetrics
-import com.example.crazyweather.services.interfaces.IWeatherApiService
+import com.example.crazyweather.services.interfaces.IWeatherService
 
-class FakeWeatherApiService : IWeatherApiService {
+class FakeWeatherApiService : IWeatherService {
     override suspend fun getCitiesAverageWeather(duringDays: Int): List<CityWeather> {
         return listOf(
             CityWeather("Сургут", WeatherMetrics(10.0, 5.0, 10.0, 50.0)),
