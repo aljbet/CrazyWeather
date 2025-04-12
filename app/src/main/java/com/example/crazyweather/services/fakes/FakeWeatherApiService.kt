@@ -7,19 +7,19 @@ import com.example.crazyweather.services.interfaces.IWeatherService
 class FakeWeatherApiService : IWeatherService {
     override suspend fun getCitiesAverageWeather(duringDays: Int): List<CityWeather> {
         return listOf(
-            CityWeather("Сургут", WeatherMetrics(10.0, 5.0, 10.0, 50.0)),
-            CityWeather("Якутск", WeatherMetrics(-50.0, 10.0, 0.0, 0.0)),
-            CityWeather("Саратов", WeatherMetrics(8.0, 10.0, 10.0, 40.0))
+            CityWeather("Сургут", WeatherMetrics(10, 5, 10, 50)),
+            CityWeather("Якутск", WeatherMetrics(-50, 10, 0, 0)),
+            CityWeather("Саратов", WeatherMetrics(8, 10, 10, 40))
         )
     }
 
     override suspend fun getCityForecast(cityName: String, duringDays: Int): List<WeatherMetrics> {
         return List(duringDays) { day ->
             WeatherMetrics(
-                temperature = 10.0 + day,
-                windSpeed = 5.0 + day,
-                humidity = 80.0 - day,
-                cloudiness = 50.0 + day * 5
+                temperature = 10 + day,
+                windSpeed = 5 + day,
+                humidity = 80 - day,
+                cloudiness = 50 + day * 5
             )
         }
     }
@@ -29,10 +29,10 @@ class FakeWeatherApiService : IWeatherService {
         return CityWeather(
             cityName = cityName,
             metrics = WeatherMetrics(
-                temperature = forecasts.map { it.temperature!! }.average(),
-                windSpeed = forecasts.map { it.windSpeed!! }.average(),
-                humidity = forecasts.map { it.humidity!! }.average(),
-                cloudiness = forecasts.map { it.cloudiness!! }.average()
+                temperature = forecasts.map { it.temperature!! }.average().toInt(),
+                windSpeed = forecasts.map { it.windSpeed!! }.average().toInt(),
+                humidity = forecasts.map { it.humidity!! }.average().toInt(),
+                cloudiness = forecasts.map { it.cloudiness!! }.average().toInt()
             )
         )
     }

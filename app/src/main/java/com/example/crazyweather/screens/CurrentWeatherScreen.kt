@@ -268,19 +268,19 @@ fun WeatherParam(name: String, value: String, modifier: Modifier = Modifier) {
 @Composable
 private fun getWeatherDescription(metrics: WeatherMetrics): String {
     return when {
-        (metrics.cloudiness ?: 0.0) > 70 -> stringResource(R.string.cloudy)
-        (metrics.cloudiness ?: 0.0) > 30 -> stringResource(R.string.partly_cloudy)
-        (metrics.temperature ?: 0.0) > 25 -> stringResource(R.string.clear_hot)
-        (metrics.temperature ?: 0.0) < 0 -> stringResource(R.string.clear_hot)
+        (metrics.cloudiness ?: 0) > 70 -> stringResource(R.string.cloudy)
+        (metrics.cloudiness ?: 0) > 30 -> stringResource(R.string.partly_cloudy)
+        (metrics.temperature ?: 0) > 25 -> stringResource(R.string.clear_hot)
+        (metrics.temperature ?: 0) < 0 -> stringResource(R.string.clear_hot)
         else -> stringResource(R.string.clear)
     }
 }
 
 private fun getWeatherIcon(metrics: WeatherMetrics): String {
     return when {
-        (metrics.cloudiness ?: 0.0) > 70 -> "\u2601" // Облачно
-        (metrics.cloudiness ?: 0.0) > 30 -> "\u26c5" // Переменная облачность
-        (metrics.temperature ?: 0.0) < 0 -> "\u2744" // Снежинка
+        (metrics.cloudiness ?: 0) > 70 -> "\u2601" // Облачно
+        (metrics.cloudiness ?: 0) > 30 -> "\u26c5" // Переменная облачность
+        (metrics.temperature ?: 0) < 0 -> "\u2744" // Снежинка
         else -> "\u2600" // Солнце
     }
 }

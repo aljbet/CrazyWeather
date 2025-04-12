@@ -52,7 +52,7 @@ fun SearchScreen(
             value = searchParams.temperature?.toString() ?: "",
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(temperature = value.toDoubleOrNull())
+                    searchParams.copy(temperature = value.toIntOrNull())
                 )
             }
         )
@@ -65,7 +65,7 @@ fun SearchScreen(
             value = searchParams.windSpeed?.toString() ?: "",
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(windSpeed = value.toDoubleOrNull())
+                    searchParams.copy(windSpeed = value.toIntOrNull())
                 )
             }
         )
@@ -78,7 +78,7 @@ fun SearchScreen(
             value = searchParams.humidity?.toString() ?: "",
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(humidity = value.toDoubleOrNull())
+                    searchParams.copy(humidity = value.toIntOrNull())
                 )
             }
         )
@@ -91,7 +91,7 @@ fun SearchScreen(
             value = searchParams.cloudiness?.toString() ?: "",
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(cloudiness = value.toDoubleOrNull())
+                    searchParams.copy(cloudiness = value.toIntOrNull())
                 )
             }
         )
@@ -103,8 +103,7 @@ fun SearchScreen(
                 coroutineScope.launch {
                     val results = searchViewModel.searchCities()
                     sharedViewModel.setSearchResults(results)
-                    println(results)
-                    navController.navigate("search_result")
+                    navController.navigate(Screen.SearchResult.route)
                 }
             }
         ) {

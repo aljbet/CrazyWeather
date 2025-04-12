@@ -1,8 +1,8 @@
 package com.example.crazyweather.models.entities
 
 data class WeatherMetrics(
-    val temperature: Double? = null,
-    val windSpeed: Double? = null,
-    val humidity: Double? = null,
-    val cloudiness: Double? = null
+    val temperature: Int? = null,
+    val windSpeed: Int? = null,
+    val humidity: Int? = null,
+    val cloudiness: Int? = null
 )

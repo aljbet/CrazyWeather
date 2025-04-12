@@ -30,10 +30,10 @@ class WeatherService (
 
     private fun calculateAverageMetrics(metrics: List<WeatherMetrics>): WeatherMetrics {
         return WeatherMetrics(
-            temperature = metrics.mapNotNull { it.temperature }.average(),
-            windSpeed = metrics.mapNotNull { it.windSpeed }.average(),
-            humidity = metrics.mapNotNull { it.humidity }.average(),
-            cloudiness = metrics.mapNotNull { it.cloudiness }.average()
+            temperature = metrics.mapNotNull { it.temperature }.average().toInt(),
+            windSpeed = metrics.mapNotNull { it.windSpeed }.average().toInt(),
+            humidity = metrics.mapNotNull { it.humidity }.average().toInt(),
+            cloudiness = metrics.mapNotNull { it.cloudiness }.average().toInt()
         )
     }
 }

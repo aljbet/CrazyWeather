@@ -95,22 +95,22 @@ fun HistoryListItem(item: SearchHistoryItem) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         item.searchParams.temperature?.let {
-            Text("${it.toInt()}°C", modifier = Modifier
+            Text("$it°C", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
         item.searchParams.windSpeed?.let {
-            Text("${it.toInt()} м/с", modifier = Modifier
+            Text("$it м/с", modifier = Modifier
                 .padding(10.dp)
                 .width(70.dp))
         }
         item.searchParams.humidity?.let {
-            Text("${it.toInt()}%", modifier = Modifier
+            Text("$it%", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
         item.searchParams.cloudiness?.let {
-            Text("${it.toInt()}%", modifier = Modifier
+            Text("$it%", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
@@ -131,7 +131,7 @@ fun HistoryScreenPreview() {
 fun HistoryListItemPreview() {
     HistoryListItem(
         SearchHistoryItem(
-            5, WeatherMetrics(1.0, 1.0, 1.0, 1.0),
+            5, WeatherMetrics(1, 1, 1, 1),
             timestamp = System.currentTimeMillis(),
             results = null,
         )

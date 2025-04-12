@@ -27,10 +27,10 @@ class WeatherApiClient (
         return response.forecast.forecastday.flatMap { forecastDay ->
             forecastDay.hour.map { hour ->
                 WeatherMetrics(
-                    temperature = hour.temp_c,
-                    windSpeed = hour.wind_kph,
-                    humidity = hour.humidity,
-                    cloudiness = hour.cloud
+                    temperature = hour.temp_c.toInt(),
+                    windSpeed = hour.wind_kph.toInt(),
+                    humidity = hour.humidity.toInt(),
+                    cloudiness = hour.cloud.toInt()
                 )
             }
         }
