@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.appModule
+import com.example.crazyweather.dbModule
 import com.example.crazyweather.ktorModule
 import com.example.crazyweather.ui.theme.BorderBlue
 import com.example.crazyweather.viewmodels.SearchViewModel
@@ -49,7 +50,7 @@ fun SearchScreen(
         SearchItem(
             title = "Температура",
             measurement = "C°",
-            value = searchParams.temperature?.toString() ?: "",
+            value = searchParams.temperature ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
                     searchParams.copy(temperature = value.toIntOrNull())
@@ -62,7 +63,7 @@ fun SearchScreen(
         SearchItem(
             title = "Сила ветра",
             measurement = "м/с",
-            value = searchParams.windSpeed?.toString() ?: "",
+            value = searchParams.windSpeed ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
                     searchParams.copy(windSpeed = value.toIntOrNull())
@@ -75,7 +76,7 @@ fun SearchScreen(
         SearchItem(
             title = "Влажность",
             measurement = "%",
-            value = searchParams.humidity?.toString() ?: "",
+            value = searchParams.humidity ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
                     searchParams.copy(humidity = value.toIntOrNull())
@@ -88,7 +89,7 @@ fun SearchScreen(
         SearchItem(
             title = "Облачность",
             measurement = "%",
-            value = searchParams.cloudiness?.toString() ?: "",
+            value = searchParams.cloudiness ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
                     searchParams.copy(cloudiness = value.toIntOrNull())
@@ -116,7 +117,7 @@ fun SearchScreen(
 fun SearchItem(
     title: String,
     measurement: String,
-    value: String,
+    value: Int,
     onValueChange: (String) -> Unit
 ) {
     Row(
@@ -133,7 +134,7 @@ fun SearchItem(
         )
         Spacer(modifier = Modifier.width(8.dp))
         TextField(
-            value = value,
+            value = value.toString(),
             onValueChange = onValueChange,
             singleLine = true,
             modifier = Modifier.width(60.dp)
@@ -147,7 +148,7 @@ fun SearchItem(
 @Composable
 fun SearchScreenPreview() {
     startKoin {
-        modules(appModule, ktorModule)
+        modules(appModule, ktorModule, dbModule)
     }
     SearchScreen(
         rememberNavController(), koinViewModel<SharedViewModel>()
@@ -160,6 +161,6 @@ fun SearchItemPreview() {
     SearchItem(
         title = "Сила ветра",
         measurement = "м/с",
-        value = "15",
+        value = 15,
         onValueChange = {})
 }

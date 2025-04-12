@@ -1,5 +1,7 @@
 package com.example.crazyweather
 
+import androidx.room.Room
+import com.example.crazyweather.repository.AppDatabase
 import com.example.crazyweather.services.fakes.FakeSearchHistoryService
 import com.example.crazyweather.services.implementations.CitySearchService
 import com.example.crazyweather.services.implementations.WeatherApiClient
@@ -21,6 +23,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.ktor.client.engine.cio.*
+import org.koin.android.ext.koin.androidApplication
 
 val appModule = module {
     single<IWeatherService> { WeatherService(get()) }
@@ -63,4 +66,13 @@ val client = HttpClient(CIO) {
 
 val ktorModule = module {
     single { client }
+}
+
+val dbModule = module {
+    single {
+        val db = Room.databaseBuilder(
+            androidApplication(),
+            AppDatabase::class.java, "crazy_weather_db"
+        ).build()
+    }
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.appModule
+import com.example.crazyweather.dbModule
 import com.example.crazyweather.ktorModule
 import com.example.crazyweather.models.entities.SearchHistoryItem
 import com.example.crazyweather.models.entities.WeatherMetrics
@@ -86,7 +87,6 @@ fun HistoryScreen(
 
 @Composable
 fun HistoryListItem(item: SearchHistoryItem) {
-    println(item.searchParams)
     Row(
         modifier = Modifier
             .border(2.dp, BorderBlue)
@@ -121,7 +121,7 @@ fun HistoryListItem(item: SearchHistoryItem) {
 @Composable
 fun HistoryScreenPreview() {
     startKoin {
-        modules(appModule, ktorModule)
+        modules(appModule, ktorModule, dbModule)
     }
     HistoryScreen(rememberNavController())
 }
@@ -132,8 +132,7 @@ fun HistoryListItemPreview() {
     HistoryListItem(
         SearchHistoryItem(
             5, WeatherMetrics(1, 1, 1, 1),
-            timestamp = System.currentTimeMillis(),
-            results = null,
+            timestamp = System.currentTimeMillis()
         )
     )
 }

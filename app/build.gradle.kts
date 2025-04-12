@@ -77,4 +77,9 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    val room_version = "2.7.0"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 }

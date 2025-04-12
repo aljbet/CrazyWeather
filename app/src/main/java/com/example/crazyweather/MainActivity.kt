@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
         startKoin {
             androidContext(this@MainActivity)
-            modules(appModule, ktorModule)
+            modules(appModule, ktorModule, dbModule)
         }
     }
 }

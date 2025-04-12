@@ -24,6 +24,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.crazyweather.R
 import com.example.crazyweather.appModule
+import com.example.crazyweather.dbModule
 import com.example.crazyweather.ktorModule
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.CurrentWeatherState
@@ -289,7 +290,7 @@ private fun getWeatherIcon(metrics: WeatherMetrics): String {
 @Composable
 fun CurrentWeatherScreenLoadingPreview() {
     startKoin {
-        modules(appModule, ktorModule)
+        modules(appModule, ktorModule, dbModule)
     }
     CurrentWeatherScreen("Саратов"
     )
