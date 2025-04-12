@@ -53,7 +53,7 @@ fun SearchScreen(
             value = searchParams.temperature ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(temperature = value.toIntOrNull())
+                    searchParams.copy(temperature = value.toInt())
                 )
             }
         )
@@ -66,7 +66,7 @@ fun SearchScreen(
             value = searchParams.windSpeed ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(windSpeed = value.toIntOrNull())
+                    searchParams.copy(windSpeed = value.toInt())
                 )
             }
         )
@@ -79,7 +79,7 @@ fun SearchScreen(
             value = searchParams.humidity ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(humidity = value.toIntOrNull())
+                    searchParams.copy(humidity = value.toInt())
                 )
             }
         )
@@ -92,7 +92,7 @@ fun SearchScreen(
             value = searchParams.cloudiness ?: 0,
             onValueChange = { value ->
                 searchViewModel.updateSearchParams(
-                    searchParams.copy(cloudiness = value.toIntOrNull())
+                    searchParams.copy(cloudiness = value.toInt())
                 )
             }
         )
