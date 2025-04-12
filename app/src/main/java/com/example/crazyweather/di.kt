@@ -17,7 +17,7 @@ import org.koin.dsl.module
 val appModule = module {
     single<IWeatherApiService> { FakeWeatherApiService() }
     single<ISearchHistoryService> { FakeSearchHistoryService() }
-    single<ICitySearchService> { CitySearchService(get())}
+    single<ICitySearchService> { CitySearchService(get()) }
 
     viewModel { HistoryViewModel(get()) }
     viewModel { SharedViewModel() }
