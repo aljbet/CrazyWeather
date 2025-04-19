@@ -85,4 +85,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
     testImplementation("io.mockk:mockk:1.13.11")
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

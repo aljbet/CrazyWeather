@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class CurrentWeatherViewModel(
-    private val weatherApiService: IWeatherService,
+    private val weatherService: IWeatherService,
 ) : ViewModel() {
 
     private val _weatherState = MutableStateFlow<CurrentWeatherState>(CurrentWeatherState.Loading)
@@ -20,7 +20,7 @@ class CurrentWeatherViewModel(
         viewModelScope.launch {
             _weatherState.value = CurrentWeatherState.Loading
             try {
-                val currentWeather = weatherApiService.getCityForecast(cityName, 1).firstOrNull()
+                val currentWeather = weatherService.getCityForecast(cityName, 1).firstOrNull()
 
                 _weatherState.value = CurrentWeatherState.Success(
                     cityName = cityName,
