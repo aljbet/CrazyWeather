@@ -7,16 +7,16 @@ import com.example.crazyweather.services.interfaces.IWeatherService
 import kotlin.math.sqrt
 
 class CitySearchService(
-    private val weatherApi: IWeatherService
+    private val weatherService: IWeatherService
 ) : ICitySearchService {
 
     override suspend fun findBestMatchingCities(userMetrics: WeatherMetrics): List<CityWeather> {
-        val allCities = weatherApi.getCitiesAverageWeather(7)
+        val allCities = weatherService.getCitiesAverageWeather(7)
         return calculateMatches(allCities, userMetrics)
     }
 
     override suspend fun getCityForecast(cityName: String, duringDays: Int): List<WeatherMetrics> {
-        return weatherApi.getCityForecast(cityName, duringDays)
+        return weatherService.getCityForecast(cityName, duringDays)
     }
 
     private fun calculateMatches(cities: List<CityWeather>, userMetrics: WeatherMetrics): List<CityWeather> {

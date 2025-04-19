@@ -36,5 +36,6 @@ class SearchHistoryService(val historyDao: HistoryDao) : ISearchHistoryService {
 
     override suspend fun clearHistory() {
         historyDao.deleteAll()
+        nextId = 1
     }
 }
