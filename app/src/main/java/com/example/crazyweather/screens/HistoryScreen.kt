@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.crazyweather.appModule
+import com.example.crazyweather.dbModule
+import com.example.crazyweather.ktorModule
 import com.example.crazyweather.models.entities.SearchHistoryItem
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.HistoryScreenEvent
@@ -85,7 +87,6 @@ fun HistoryScreen(
 
 @Composable
 fun HistoryListItem(item: SearchHistoryItem) {
-    println(item.searchParams)
     Row(
         modifier = Modifier
             .border(2.dp, BorderBlue)
@@ -94,22 +95,22 @@ fun HistoryListItem(item: SearchHistoryItem) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         item.searchParams.temperature?.let {
-            Text("${it.toInt()}°C", modifier = Modifier
+            Text("$it°C", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
         item.searchParams.windSpeed?.let {
-            Text("${it.toInt()} м/с", modifier = Modifier
+            Text("$it м/с", modifier = Modifier
                 .padding(10.dp)
                 .width(70.dp))
         }
         item.searchParams.humidity?.let {
-            Text("${it.toInt()}%", modifier = Modifier
+            Text("$it%", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
         item.searchParams.cloudiness?.let {
-            Text("${it.toInt()}%", modifier = Modifier
+            Text("$it%", modifier = Modifier
                 .padding(10.dp)
                 .width(50.dp))
         }
@@ -120,7 +121,7 @@ fun HistoryListItem(item: SearchHistoryItem) {
 @Composable
 fun HistoryScreenPreview() {
     startKoin {
-        modules(appModule)
+        modules(appModule, ktorModule, dbModule)
     }
     HistoryScreen(rememberNavController())
 }
@@ -130,9 +131,8 @@ fun HistoryScreenPreview() {
 fun HistoryListItemPreview() {
     HistoryListItem(
         SearchHistoryItem(
-            5, WeatherMetrics(1.0, 1.0, 1.0, 1.0),
-            timestamp = System.currentTimeMillis(),
-            results = null,
+            5, WeatherMetrics(1, 1, 1, 1),
+            timestamp = System.currentTimeMillis()
         )
     )
 }

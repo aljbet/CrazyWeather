@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.CurrentWeatherState
-import com.example.crazyweather.services.interfaces.IWeatherApiService
+import com.example.crazyweather.services.interfaces.IWeatherService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class CurrentWeatherViewModel(
-    private val weatherApiService: IWeatherApiService,
+    private val weatherApiService: IWeatherService,
 ) : ViewModel() {
 
     private val _weatherState = MutableStateFlow<CurrentWeatherState>(CurrentWeatherState.Loading)
