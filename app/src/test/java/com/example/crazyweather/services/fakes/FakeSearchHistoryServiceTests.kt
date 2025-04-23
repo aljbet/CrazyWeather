@@ -3,7 +3,6 @@ package com.example.crazyweather.services.fakes
 import com.example.crazyweather.models.entities.CityWeather
 import com.example.crazyweather.models.entities.WeatherMetrics
 import kotlinx.coroutines.runBlocking
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

@@ -14,13 +14,10 @@ import com.example.crazyweather.screens.HistoryScreen
 import com.example.crazyweather.screens.Screen
 import com.example.crazyweather.screens.SearchResultScreen
 import com.example.crazyweather.screens.SearchScreen
-import com.example.crazyweather.viewmodels.SharedViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val sharedViewModel = koinViewModel<SharedViewModel>()
 
     Scaffold(
         bottomBar = {
@@ -41,12 +38,12 @@ fun MainScreen() {
             composable(Screen.History.route) { HistoryScreen(navController) }
             composable(Screen.Search.route) {
                 SearchScreen(
-                    navController, sharedViewModel
+                    navController
                 )
             }
             composable(Screen.SearchResult.route) {
                 SearchResultScreen(
-                    navController, sharedViewModel
+                    navController
                 )
             }
         }

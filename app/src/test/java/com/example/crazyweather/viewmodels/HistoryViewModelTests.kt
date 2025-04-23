@@ -3,10 +3,8 @@ package com.example.crazyweather.viewmodels
 import com.example.crazyweather.models.entities.SearchHistoryItem
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.models.vmmodels.HistoryScreenEvent
-import com.example.crazyweather.models.vmmodels.HistoryScreenState
 import com.example.crazyweather.services.interfaces.ISearchHistoryService
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers

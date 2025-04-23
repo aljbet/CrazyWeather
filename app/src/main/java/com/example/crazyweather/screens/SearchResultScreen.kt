@@ -41,9 +41,9 @@ import org.koin.core.context.startKoin
 @Composable
 fun SearchResultScreen(
     navController: NavController,
-    sharedViewModel: SharedViewModel
 ) {
     val viewModel: SearchResultViewModel = koinViewModel<SearchResultViewModel>()
+    val sharedViewModel: SharedViewModel = koinViewModel<SharedViewModel>()
     val searchResults by sharedViewModel.searchResults.collectAsState()
 
     Column(
@@ -102,7 +102,7 @@ fun SearchResultScreenPreview() {
         modules(appModule, ktorModule, dbModule)
     }
     SearchResultScreen(
-        rememberNavController(), koinViewModel<SharedViewModel>()
+        rememberNavController()
     )
 }
 

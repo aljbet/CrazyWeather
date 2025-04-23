@@ -1,7 +1,6 @@
 package com.example.crazyweather.services.implementations
 
 import com.example.crazyweather.models.entities.CityWeather
-import com.example.crazyweather.models.entities.SearchHistoryItem
 import com.example.crazyweather.models.entities.WeatherMetrics
 import com.example.crazyweather.repository.HistoryDao
 import com.example.crazyweather.repository.HistoryItemTable
@@ -10,7 +9,6 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

@@ -19,7 +19,10 @@ class CitySearchService(
         return weatherService.getCityForecast(cityName, duringDays)
     }
 
-    private fun calculateMatches(cities: List<CityWeather>, userMetrics: WeatherMetrics): List<CityWeather> {
+    private fun calculateMatches(
+        cities: List<CityWeather>,
+        userMetrics: WeatherMetrics
+    ): List<CityWeather> {
         cities.map { it.matchPercentage = calculateMatchScore(it.metrics, userMetrics) }
         return cities.sortedByDescending { it.matchPercentage }
     }
@@ -34,29 +37,21 @@ class CitySearchService(
 
         val metricsToCompare = mutableListOf<Pair<Double, Double>>()
 
-        if (userMetrics.temperature != null && cityMetrics.temperature != null) {
-            val normCity = cityMetrics.temperature / maxValues["temperature"]!!
-            val normUser = userMetrics.temperature / maxValues["temperature"]!!
-            metricsToCompare.add(normCity to normUser)
-        }
+        var normCity = cityMetrics.temperature / maxValues["temperature"]!!
+        var normUser = userMetrics.temperature / maxValues["temperature"]!!
+        metricsToCompare.add(normCity to normUser)
 
-        if (userMetrics.windSpeed != null && cityMetrics.windSpeed != null) {
-            val normCity = cityMetrics.windSpeed / maxValues["windSpeed"]!!
-            val normUser = userMetrics.windSpeed / maxValues["windSpeed"]!!
-            metricsToCompare.add(normCity to normUser)
-        }
+        normCity = cityMetrics.windSpeed / maxValues["windSpeed"]!!
+        normUser = userMetrics.windSpeed / maxValues["windSpeed"]!!
+        metricsToCompare.add(normCity to normUser)
 
-        if (userMetrics.humidity != null && cityMetrics.humidity != null) {
-            val normCity = cityMetrics.humidity / maxValues["humidity"]!!
-            val normUser = userMetrics.humidity / maxValues["humidity"]!!
-            metricsToCompare.add(normCity to normUser)
-        }
+        normCity = cityMetrics.humidity / maxValues["humidity"]!!
+        normUser = userMetrics.humidity / maxValues["humidity"]!!
+        metricsToCompare.add(normCity to normUser)
 
-        if (userMetrics.cloudiness != null && cityMetrics.cloudiness != null) {
-            val normCity = cityMetrics.cloudiness / maxValues["cloudiness"]!!
-            val normUser = userMetrics.cloudiness / maxValues["cloudiness"]!!
-            metricsToCompare.add(normCity to normUser)
-        }
+        normCity = cityMetrics.cloudiness / maxValues["cloudiness"]!!
+        normUser = userMetrics.cloudiness / maxValues["cloudiness"]!!
+        metricsToCompare.add(normCity to normUser)
 
         if (metricsToCompare.isEmpty()) return 0
 

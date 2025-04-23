@@ -30,9 +30,9 @@ val appModule = module {
     single<IWeatherApi> { WeatherApiClient(get()) }
     single<ISearchHistoryService> { FakeSearchHistoryService() }
     single<ICitySearchService> { CitySearchService(get()) }
+    single<SharedViewModel> { SharedViewModel() }
 
     viewModel { HistoryViewModel(get()) }
-    viewModel { SharedViewModel() }
     viewModel { SearchViewModel(get(), get()) }
     viewModel { SearchResultViewModel(get()) }
     viewModel { CurrentWeatherViewModel(get()) }
